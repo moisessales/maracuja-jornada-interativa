@@ -2496,10 +2496,13 @@ html.dark-mode figcaption {
   align-items:center;
   justify-content:center;
   flex-direction:column;
-  gap:22px;
-  background:rgba(0,0,0,.22);
-  backdrop-filter:blur(5px);
-  animation:maracujitoFadeIn .7s ease forwards;
+  gap:clamp(14px, 2vw, 22px);
+  padding:clamp(16px, 4vw, 28px);
+  background:rgba(18,14,10,.18);
+  backdrop-filter:blur(6px);
+  -webkit-backdrop-filter:blur(6px);
+  animation:maracujitoFadeIn .38s cubic-bezier(.2,.8,.2,1) forwards;
+  overflow:hidden;
 }
 
 .maracujito-intro.guide-mode{
@@ -2510,62 +2513,120 @@ html.dark-mode figcaption {
   justify-content:flex-end;
   background:none;
   backdrop-filter:none;
+  -webkit-backdrop-filter:none;
   gap:12px;
   animation:maracujitoMoveToGuide .9s ease forwards;
 }
 
 .maracujito-intro.is-leaving{
-  animation:maracujitoLeave .6s ease forwards;
+  animation:maracujitoLeave .38s ease forwards;
 }
 
 .maracujito-card{
-  max-width:420px;
-  background:var(--card,#f6efdf);
-  border:1px solid rgba(227,168,59,.55);
-  border-radius:24px;
-  padding:22px;
-  box-shadow:0 20px 50px rgba(0,0,0,.2);
+  position:relative;
+  width:min(86vw, 350px);
+  max-width:min(86vw, 350px);
+  background:linear-gradient(180deg, rgba(250,243,232,.98), rgba(243,233,214,.96));
+  border:1px solid rgba(227,168,59,.46);
+  border-radius:22px 22px 22px 10px;
+  padding:16px 18px 15px;
+  box-shadow:0 18px 40px rgba(61,40,10,.12), 0 6px 18px rgba(0,0,0,.08);
   color:var(--text,#33281b);
-  text-align:center;
+  text-align:left;
+  transform:translateY(0);
+  transition:transform .28s ease, box-shadow .28s ease;
+}
+
+.maracujito-card::before{
+  content:"";
+  position:absolute;
+  left:24px;
+  bottom:-8px;
+  width:16px;
+  height:16px;
+  background:linear-gradient(135deg, rgba(250,243,232,.98), rgba(243,233,214,.96));
+  border-right:1px solid rgba(227,168,59,.46);
+  border-bottom:1px solid rgba(227,168,59,.46);
+  transform:rotate(45deg);
 }
 
 .dark-mode .maracujito-card{
-  background:#17150f;
+  background:linear-gradient(180deg, rgba(23,21,15,.98), rgba(32,28,22,.96));
   color:#f4ead5;
+  border-color:rgba(227,168,59,.52);
+  box-shadow:0 18px 40px rgba(0,0,0,.28), 0 6px 18px rgba(0,0,0,.18);
+}
+
+.dark-mode .maracujito-card::before{
+  background:linear-gradient(135deg, rgba(23,21,15,.98), rgba(32,28,22,.96));
+  border-color:rgba(227,168,59,.52);
+}
+
+.maracujito-kicker{
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  font-size:.7rem;
+  font-weight:700;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:#7a6534;
+  margin-bottom:10px;
 }
 
 .maracujito-card strong{
   display:block;
   color:#d99d27;
-  font-size:1.25rem;
-  margin-bottom:10px;
+  font-size:1.04rem;
+  letter-spacing:.04em;
+  text-transform:uppercase;
+  margin-bottom:8px;
+}
+
+.maracujito-card p{
+  margin:0;
+  font-size:.97rem;
+  line-height:1.5;
+  color:inherit;
 }
 
 .maracujito-card button{
   margin-top:16px;
   border:0;
-  background:#d99d27;
+  background:linear-gradient(135deg,#e4a63a,#cf8f21);
   color:white;
   border-radius:999px;
-  padding:12px 22px;
+  padding:12px 20px;
   cursor:pointer;
-  font-weight:600;
+  font-weight:700;
+  box-shadow:0 12px 22px rgba(217,157,39,.24);
+  transition:transform .2s ease, box-shadow .2s ease, filter .2s ease;
 }
 
+.maracujito-card button:hover{
+  transform:translateY(-1px);
+  box-shadow:0 16px 26px rgba(217,157,39,.28);
+  filter:brightness(1.02);
+}
+
+.maracujito-card button:active{transform:translateY(0) scale(.98);}
+
 .maracujito-character{
-  width:260px;
-  height:260px;
-  border-radius:50%;
-  background:linear-gradient(145deg,#ffd95a,#e8a92d);
-  border:6px solid white;
-  box-shadow:0 20px 50px rgba(0,0,0,.25);
+  width:clamp(150px, 22vw, 260px);
+  height:clamp(150px, 22vw, 260px);
+  border-radius:32% 68% 52% 48% / 46% 42% 58% 54%;
+  background:radial-gradient(circle at 25% 22%, #ffe99f 0%, #f7d15a 24%, #e8a92d 60%, #c8821d 100%);
+  border:6px solid rgba(255,255,255,.9);
+  box-shadow:0 22px 48px rgba(110,72,22,.18), inset 0 1px 0 rgba(255,255,255,.4);
   display:flex;
   align-items:center;
   justify-content:center;
   font-size:120px;
   position:relative;
   flex-shrink:0;
-  transition:.8s ease;
+  transition:transform .8s ease, box-shadow .8s ease, border-color .3s ease;
+  animation:maracujitoBreath 5s ease-in-out infinite;
+  will-change:transform;
 }
 
 .maracujito-character img{
@@ -2573,6 +2634,7 @@ html.dark-mode figcaption {
   height:100%;
   max-width:100%;
   object-fit:contain;
+  display:block;
 }
 
 .maracujito-character.has-image{
@@ -2580,15 +2642,20 @@ html.dark-mode figcaption {
   border:0;
   box-shadow:none;
   font-size:0;
+  animation:none;
 }
 
 .maracujito-character.has-image::after{display:none;}
 
 .maracujito-character::after{
-  content:"🥼";
+  content:"🍊";
   position:absolute;
-  bottom:18px;
-  font-size:65px;
+  right:16px;
+  bottom:14px;
+  font-size:clamp(42px, 5vw, 68px);
+  filter:drop-shadow(0 4px 8px rgba(105,72,18,.2));
+  opacity:.9;
+  z-index:0;
 }
 
 .guide-mode .maracujito-character{
@@ -2599,13 +2666,17 @@ html.dark-mode figcaption {
 
 .guide-mode .maracujito-character::after{
   font-size:25px;
-  bottom:8px;
+  right:8px;
+  bottom:7px;
 }
 
 .guide-mode .maracujito-card{
   text-align:left;
   padding:14px;
+  border-radius:18px;
 }
+
+.guide-mode .maracujito-card::before{display:none;}
 
 .guide-mode .maracujito-card p,
 .guide-mode .maracujito-card button{
@@ -2613,32 +2684,71 @@ html.dark-mode figcaption {
 }
 
 @keyframes maracujitoFadeIn{
- from{opacity:0;transform:scale(.9)}
- to{opacity:1;transform:scale(1)}
+ from{opacity:0;transform:translateY(18px) scale(.98)}
+ to{opacity:1;transform:translateY(0) scale(1)}
 }
 
 @keyframes maracujitoMoveToGuide{
- from{opacity:0}
- to{opacity:1}
+ from{opacity:0;transform:translateY(8px)}
+ to{opacity:1;transform:translateY(0)}
 }
 
 @keyframes maracujitoLeave{
- to{opacity:0;transform:translateY(50px)}
+ to{opacity:0;transform:translateY(12px) scale(.98)}
+}
+
+@keyframes maracujitoBreath{
+  0%,100%{transform:scale(1)}
+  50%{transform:scale(1.02)}
 }
 
 @media(max-width:700px){
- .maracujito-character{
-  width:180px;
-  height:180px;
-  font-size:80px;
+ .maracujito-intro{
+  align-items:flex-end;
+  justify-content:center;
+  padding:18px 12px calc(18px + env(safe-area-inset-bottom));
  }
  .maracujito-intro.guide-mode{
-  right:14px;
-  bottom:14px;
+  right:12px;
+  bottom:12px;
+ }
+ .maracujito-character{
+  width:170px;
+  height:170px;
+  font-size:80px;
+ }
+ .maracujito-card{
+  width:min(76vw, 320px);
+  max-width:min(76vw, 320px);
+  padding:15px 16px 13px;
+ }
+ .maracujito-card::before{
+  left:18px;
  }
  .guide-mode .maracujito-character{
   width:70px;
   height:70px;
+ }
+ .maracujito-card p{
+  font-size:.92rem;
+  line-height:1.45;
+ }
+}
+
+@media(max-width:360px){
+ .maracujito-intro{
+  padding:12px 10px calc(12px + env(safe-area-inset-bottom));
+ }
+ .maracujito-character{
+  width:130px;
+  height:130px;
+ }
+ .maracujito-card{
+  width:min(70vw, 280px);
+  max-width:min(70vw, 280px);
+ }
+ .maracujito-card strong{
+  font-size:.96rem;
  }
 }
 </style>
@@ -2664,9 +2774,10 @@ html.dark-mode figcaption {
     🍊
   </div>
   <div class="maracujito-card">
+    <span class="maracujito-kicker" aria-hidden="true"><span>🍃</span> Maracujito</span>
     <strong>Olá, eu sou o Maracujito!</strong>
     <p>Vou acompanhar você nesta jornada pelo universo do maracujá: da natureza ao conhecimento.</p>
-    <button id="maracujitoStart">Começar jornada →</button>
+    <button id="maracujitoStart" type="button" data-default-label="Começar jornada →" data-continue-label="Continuar →">Começar jornada →</button>
   </div>
 </div>
 
@@ -3880,103 +3991,142 @@ document.addEventListener("DOMContentLoaded",()=>{
 
 <script id="maracujito-v4-script">
 (function(){
- const box=document.getElementById('maracujitoIntro');
- const btn=document.getElementById('maracujitoStart');
- const character=document.getElementById('maracujitoCharacter');
- const image=document.getElementById('maracujitoImage');
+  const box=document.getElementById('maracujitoIntro');
+  const btn=document.getElementById('maracujitoStart');
+  const character=document.getElementById('maracujitoCharacter');
+  const image=document.getElementById('maracujitoImage');
 
- if(!box) return;
+  if(!box) return;
 
- let started=false;
- let dismissTimer=0;
- const maracujitoEvents={
-   botanica:false,
-   composicao:false,
-   processamento:false,
-   final:false
- };
+  let started=false;
+  let dismissTimer=0;
+  let isDismissing=false;
+  let journeyObserverConfigured=false;
+  const maracujitoEvents={
+    botanica:false,
+    composicao:false,
+    processamento:false,
+    final:false
+  };
 
- const eventDetails={
-   botanica:{
-     sectionId:'botanica',
-     image:'assets/maracujito/maracujito-botanica.webp',
-     message:'Antes do fruto existir, tudo começa com uma flor. Vamos descobrir essa primeira etapa.'
-   },
-   composicao:{
-     sectionId:'composicao',
-     image:'assets/maracujito/maracujito-composicao.webp',
-     message:'Aqui está o coração da Nutrição: os nutrientes que fazem do maracujá um alimento funcional.'
-   },
-   processamento:{
-     sectionId:'processamento',
-     image:'assets/maracujito/maracujito-processamento.webp',
-     message:'Agora vamos acompanhar como o maracujá passa pelas etapas de transformação.'
-   },
-   final:{
-     sectionId:'resumo',
-     image:'assets/maracujito/maracujito-final.webp',
-     message:'Nossa jornada chegou ao fim. Obrigado por explorar a ciência por trás do maracujá.'
-   }
- };
+  const eventDetails={
+    botanica:{
+      sectionId:'botanica',
+      image:'assets/maracujito/maracujito-botanica.webp',
+      message:'Antes do fruto existir, tudo começa com uma flor. Vamos descobrir essa primeira etapa.'
+    },
+    composicao:{
+      sectionId:'composicao',
+      image:'assets/maracujito/maracujito-composicao.webp',
+      message:'Aqui está o coração da Nutrição: os nutrientes que fazem do maracujá um alimento funcional.'
+    },
+    processamento:{
+      sectionId:'processamento',
+      image:'assets/maracujito/maracujito-processamento.webp',
+      message:'Agora vamos acompanhar como o maracujá passa pelas etapas de transformação.'
+    },
+    final:{
+      sectionId:'resumo',
+      image:'assets/maracujito/maracujito-final.webp',
+      message:'Nossa jornada chegou ao fim. Obrigado por explorar a ciência por trás do maracujá.'
+    }
+  };
 
- function setMaracujitoImage(source,isIntro=false){
-   if(!image || !character) return;
-   image.loading=isIntro ? 'eager' : 'lazy';
-   image.onload=()=>character.classList.add('has-image');
-   image.onerror=()=>character.classList.remove('has-image');
-   image.src=source;
- }
+  const chapterOrder=['botanica','composicao','processamento','final'];
 
- setMaracujitoImage('assets/maracujito/maracujito-intro.webp',true);
+  function setMaracujitoImage(source,isIntro=false){
+    if(!image || !character) return;
+    image.loading=isIntro ? 'eager' : 'lazy';
+    image.onload=()=>character.classList.add('has-image');
+    image.onerror=()=>character.classList.remove('has-image');
+    image.src=source;
+  }
 
- function hideMaracujito(){
-   window.clearTimeout(dismissTimer);
-   box.classList.add('is-leaving');
-   setTimeout(()=>box.classList.add('is-hidden'),700);
- }
+  setMaracujitoImage('assets/maracujito/maracujito-intro.webp',true);
 
- function showMaracujito(eventName){
-   if(maracujitoEvents[eventName]) return;
-   maracujitoEvents[eventName]=true;
+  function setMaracujitoButtonLabel(mode='intro'){
+    if(!btn) return;
+    const label = mode === 'chapter' ? btn.dataset.continueLabel || 'Continuar →' : btn.dataset.defaultLabel || 'Começar jornada →';
+    btn.textContent = label;
+    btn.setAttribute('aria-label', label);
+  }
 
-   const event=eventDetails[eventName];
-   const p=box.querySelector('.maracujito-card p');
-   if(p) p.textContent=event.message;
-  setMaracujitoImage(event.image);
+  function hideMaracujito(){
+    if(isDismissing) return;
+    isDismissing=true;
+    window.clearTimeout(dismissTimer);
+    box.classList.add('is-leaving');
+    box.classList.remove('chapter-appear');
+    window.setTimeout(()=>{
+      box.classList.add('is-hidden');
+      box.classList.remove('is-leaving');
+      isDismissing=false;
+      if(started) setMaracujitoButtonLabel('chapter');
+    },320);
+  }
 
-   window.clearTimeout(dismissTimer);
-   box.classList.remove('is-hidden','is-leaving');
-   box.classList.add('chapter-appear');
+  function showMaracujito(eventName){
+    if(!started || maracujitoEvents[eventName]) return;
+    const event=eventDetails[eventName];
+    if(!event) return;
 
-   setTimeout(()=>box.classList.remove('chapter-appear'),800);
-   dismissTimer=window.setTimeout(hideMaracujito,4500);
- }
+    maracujitoEvents[eventName]=true;
 
- function observeJourneyEvents(){
-   Object.entries(eventDetails).forEach(([eventName,event])=>{
-     const section=document.getElementById(event.sectionId);
-     if(!section) return;
+    const p=box.querySelector('.maracujito-card p');
+    if(p) p.textContent=event.message;
+    setMaracujitoImage(event.image);
+    setMaracujitoButtonLabel('chapter');
 
-     const observer=new IntersectionObserver((entries)=>{
-       entries.forEach(entry=>{
-         if(!entry.isIntersecting || !started || maracujitoEvents[eventName]) return;
-         showMaracujito(eventName);
-         observer.unobserve(section);
-       });
-     },{threshold:.45,rootMargin:'0px 0px -12% 0px'});
+    window.clearTimeout(dismissTimer);
+    box.classList.remove('is-hidden','is-leaving');
+    box.classList.add('chapter-appear');
 
-     observer.observe(section);
-   });
- }
+    window.setTimeout(()=>box.classList.remove('chapter-appear'),800);
+    dismissTimer=window.setTimeout(hideMaracujito,4500);
+  }
 
- if(btn){
-   btn.addEventListener('click',()=>{
-     if(started) return;
-     started=true;
-     hideMaracujito();
-     window.setTimeout(observeJourneyEvents,720);
-   });
- }
+  function isSectionVisible(section){
+    if(!section) return false;
+    const rect=section.getBoundingClientRect();
+    return rect.top <= window.innerHeight * 0.9 && rect.bottom >= window.innerHeight * 0.2;
+  }
+
+  function evaluateJourneyEvents(){
+    if(!started) return;
+
+    for(const eventName of chapterOrder){
+      if(maracujitoEvents[eventName]) continue;
+      const section=document.getElementById(eventDetails[eventName].sectionId);
+      if(isSectionVisible(section)){
+        showMaracujito(eventName);
+        return;
+      }
+    }
+  }
+
+  function observeJourneyEvents(){
+    if(journeyObserverConfigured) return;
+    journeyObserverConfigured=true;
+    evaluateJourneyEvents();
+    window.addEventListener('scroll', evaluateJourneyEvents, {passive:true});
+    window.addEventListener('resize', evaluateJourneyEvents, {passive:true});
+  }
+
+  if(btn){
+    btn.addEventListener('click',()=>{
+      if(isDismissing) return;
+
+      if(!started){
+        started=true;
+        setMaracujitoButtonLabel('chapter');
+        hideMaracujito();
+        window.setTimeout(observeJourneyEvents,720);
+        return;
+      }
+
+      hideMaracujito();
+    });
+  }
 })();
 </script>
 
